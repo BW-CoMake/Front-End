@@ -5,17 +5,20 @@ const coPink = "#D6A4A1";
 const coTeal = "#0B556B";
 const coDarkPink = "#963F59";
 
-const theme = createMuiTheme({
+export default createMuiTheme({
     palette: {
         common: {
             teal: `${coTeal}`,
             pink: `${coPink}`
         },
         primary: {
-            main: `${coTeal}`
+            main: `${coBlue}`
         },
         secondary: {
             main: `${coPink}`
+        },
+        error: {
+            main: `${coDarkPink}`
         }
     },
     typography: {
@@ -54,3 +57,4 @@ const theme = createMuiTheme({
         }
     }
 });
+
