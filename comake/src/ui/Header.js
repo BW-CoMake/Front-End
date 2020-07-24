@@ -81,8 +81,6 @@ export default function Header(props) {
     const theme = useTheme();
 
     const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
-    const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-    const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 

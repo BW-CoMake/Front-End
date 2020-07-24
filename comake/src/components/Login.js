@@ -60,7 +60,7 @@ const Login = ({history, values, errors, touched, login, getUsers}) => {
                             required
                             fullWidth
                             id="username"
-                            label="username"
+                            label="Username"
                             name="username"
                             autoComplete="username"
                             autoFocus
