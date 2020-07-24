@@ -1,4 +1,13 @@
-import * from '../actions';
+import {
+    GET_ALL_ISSUES,
+    GET_USER_ISSUES,
+    GET_SPEC_ISSUE,
+    DELETE_SPEC_ISSUE,
+    ADD_ISSUE,
+    EDIT_ISSUE,
+    ADD_VOTE,
+    SUBTRACT_VOTE  
+} from '../actions';
 
 const initialState = {
     issues: [],

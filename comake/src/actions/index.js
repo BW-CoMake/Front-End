@@ -1,7 +1,7 @@
 import axios from "axios";
 import axiosWithAuth from './../utils/axiosWithAuth';
 
-export const GETT_ALL_ISSUES = "GET_ALL_ISSUES";
+export const GET_ALL_ISSUES = "GET_ALL_ISSUES";
 export const GET_USER_ISSUES = "GET_USER_ISSUES";
 export const GET_SPEC_ISSUE = "GET_SPEC_ISSUE";
 export const DELETE_SPEC_ISSUE = "DELETE_SPEC_ISSUE";
@@ -38,10 +38,10 @@ export const login = (user) => dispatch => {
 export const getIssues = () => dispatch => {
     axiosWithAuth()
     .get("api/issues")
-    .then(res => dispatch({ type: GETT_ALL_ISSUES, issues: res.data }))
+    .then(res => dispatch({ type: GET_ALL_ISSUES, issues: res.data }))
 }
 
-export const getUserIssues = () => disptach => {
+export const getUserIssues = () => dispatch => {
     axiosWithAuth()
     .get(`/api/${localStorage.getItem("id")}/issues`)
     .then(res => dispatch({ type: GET_USER_ISSUES, issues: res.data }))
