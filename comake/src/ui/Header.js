@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-// import logo from '../assets/logo.png';
+// import logo from '../assets/logo.svg';
 
 const useStyles = makeStyles(theme => ({
     toolbarMargin: {
@@ -24,6 +28,9 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down("xs")]: {
             marginBottom: "1.25em"
         }
+    },
+    appHeader: {
+        marginLeft: "1em"
     },
     tabContainer: {
         marginLeft: "auto",
@@ -43,6 +50,17 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: "transparent"
         }
     },
+    drawer: {
+        backgroundColor: theme.palette.primary.main   
+    },
+    drawerItem: {
+       ...theme.typography.tab,
+       color: "white",
+       opacity: 0.7 
+    },
+    drawerItemSelected: {
+        opacity: 1
+    }
 }))
 
 function ElevationScroll(props) {
@@ -100,7 +118,7 @@ export default function Header(props) {
                 <Tab className={classes.tab}
                     component={Link}
                     to="/about"
-                    label="About" />
+                    label="About Us" />
                 <Tab className={classes.tab}
                     component={Link}
                     to="/login"
@@ -115,8 +133,50 @@ export default function Header(props) {
 
     const drawer = (
         <>
-            <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)}>
-                Example Drawer
+            <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)}
+            classes={{paper: classes.drawer}}>
+               <List disablePadding>
+                   <ListItem 
+                   selected={value === 0}
+                   onClick={() => {setOpenDrawer(false); setValue(0)}}
+                   divider 
+                   button 
+                   component={Link} 
+                   to="/">
+                    <ListItemText 
+                    className={value === 0 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Home</ListItemText>
+                   </ListItem>
+                   <ListItem 
+                   selected={value === 1}
+                   onClick={() => {setOpenDrawer(false); setValue(1)}}
+                   divider 
+                   button 
+                   component={Link} 
+                   to="/about">
+                    <ListItemText 
+                     className={value === 1 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>About Us</ListItemText>
+                   </ListItem>
+                   <ListItem 
+                   selected={value === 2}
+                   onClick={() => {setOpenDrawer(false); setValue(2)}}
+                   divider 
+                   button 
+                   component={Link} 
+                   to="/login">
+                    <ListItemText 
+                     className={value === 2 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Login</ListItemText>
+                   </ListItem>
+                   <ListItem 
+                   selected={value === 3}
+                   onClick={() => {setOpenDrawer(false); setValue(3)}}
+                   divider 
+                   button 
+                   component={Link} 
+                   to="/register">
+                    <ListItemText 
+                     className={value === 3 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Sign Up</ListItemText>
+                   </ListItem>
+               </List>
             </SwipeableDrawer>
             <IconButton 
             className={classes.drawerIconContainer}
@@ -131,6 +191,8 @@ export default function Header(props) {
             <ElevationScroll>
                 <AppBar color="primary">
                     <Toolbar disableGutters>
+                    <Typography variant="h2"
+                    className={classes.appHeader}>Co-Make</Typography>
                         {/* <img src={logo} alt="company logo" /> */}
                         {matchesMD ? drawer : tabs}
                     </Toolbar>

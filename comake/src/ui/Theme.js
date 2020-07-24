@@ -32,7 +32,7 @@ export default createMuiTheme({
             fontFamily: "Oswald",
             fontWeight: 700,
             fontSize: "2rem",
-            color: coTeal
+            color: coPink
         },
         h3: {
             fontFamily: "Lato",
