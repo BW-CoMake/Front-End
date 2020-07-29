@@ -119,11 +119,11 @@ export default function Header(props) {
                     label="About Us" />
                 <Tab className={classes.tab}
                     component={Link}
-                    to="/login"
+                    to="/auth/login"
                     label="Login" />
                 <Tab className={classes.tab}
                     component={Link}
-                    to="/register"
+                    to="/auth/register"
                     label="Sign Up" />
             </Tabs>
         </>
@@ -160,7 +160,7 @@ export default function Header(props) {
                    divider 
                    button 
                    component={Link} 
-                   to="/login">
+                   to="/auth/login">
                     <ListItemText 
                      className={value === 2 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Login</ListItemText>
                    </ListItem>
@@ -170,7 +170,7 @@ export default function Header(props) {
                    divider 
                    button 
                    component={Link} 
-                   to="/register">
+                   to="/auth/register">
                     <ListItemText 
                      className={value === 3 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Sign Up</ListItemText>
                    </ListItem>

@@ -33,12 +33,16 @@ const useStyles = makeStyles(theme => ({
 }));
 const SignUp = ({ history, values, errors, touched, register, getUsers}) => {
     const classes = useStyles(); 
+    const [email, handleEmail] = useInput("");
     const [username, handleUsername] = useInput("");
     const [password, handlePassword] = useInput("");
+    const [zipCode, handleZipCode] = useInput();
+  
+
     const handleSubmit = (e) => { 
         e.preventDefault()
-        register({ username, password })
-        setTimeout(() => history.push("/dashboard"), 2000)
+        register({ email, username, password, zipCode })
+        setTimeout(() => history.push("/auth/login"), 2000)
     }
 return (
     <div>
@@ -48,18 +52,19 @@ return (
                 <Avatar className={classes.avatar} />
                 <Typography component="h1" variant="h5">Sign Up</Typography>
                 <form className={classes.form} onSubmit={handleSubmit} >
-                <TextField
+                    <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="name"
-                        label="Name"
-                        name="name"
-                        autoComplete="name"
+                        id="email"
+                        label="Email"
+                        name="email"
+                        autoComplete="email"
                         autoFocus
+                        onChange={e => handleEmail(e.target.value)}
                     />
-                    <TextField
+                       <TextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -83,6 +88,18 @@ return (
                         autoComplete="current-password"
                         onChange={e => handlePassword(e.target.value)}
                     />
+                       <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="zipCode"
+                        label="Zip code"
+                        name="zipCode"
+                        autoComplete="zipCode"
+                        autoFocus
+                        onChange={e => handleZipCode(e.target.value)}
+                    />
                     <Button
                         type="submit"
                         fullWidth
@@ -90,7 +107,7 @@ return (
                         color="primary"
                         className={classes.submit}>Sign Up!</Button>
                 </form>
-                <Typography>Already have an account? <Link to="/">Log In</Link></Typography>
+                <Typography>Already have an account? <Link to="/login">Log In</Link></Typography>
             </div>
         </Container>
     </div>

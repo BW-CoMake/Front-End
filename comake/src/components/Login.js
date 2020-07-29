@@ -35,13 +35,14 @@ const useStyles = makeStyles(theme => ({
 const Login = ({history, values, errors, touched, login, getUsers}) => {
     const classes = useStyles();
 
-    const [username, setUsername, handleUsername] = useInput("");
+    const [email, setEmail, handleEmail] = useInput("");
     const [password, setPassword, handlePassword] = useInput("");
+   
 
     const handleSubmit = e => {
         e.preventDefault();
-        login({ username, password })
-        setUsername("");
+        login({ email, password });
+        setEmail("");
         setPassword("");
         setTimeout(() => history.push("/dashboard"), 1000)
     };
@@ -59,12 +60,12 @@ const Login = ({history, values, errors, touched, login, getUsers}) => {
                             margin="normal"
                             required
                             fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
-                            autoComplete="username"
+                            id="email"
+                            label="Email"
+                            name="email"
+                            autoComplete="email"
                             autoFocus
-                            onChange={e => handleUsername(e.target.value)}
+                            onChange={e => handleEmail(e.target.value)}
                         />
                         <TextField
                             variant="outlined"
@@ -86,7 +87,7 @@ const Login = ({history, values, errors, touched, login, getUsers}) => {
                             className={classes.submit}
                         >Log In</Button>
                     </form>
-                    <Typography>Don't have an account? <Link to="/signup">Sign Up</Link></Typography>
+                    <Typography>Don't have an account? <Link to="/register">Sign Up</Link></Typography>
                 </div>
             </Container>
         </div>

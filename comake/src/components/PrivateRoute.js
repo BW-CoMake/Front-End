@@ -10,7 +10,7 @@ export default function PrivateRoute({component: Component, ...rest}) {
             if (token) {
                 return <Component {...props} />
             } else {
-                return <Redirect to="/" />
+                return <Redirect to="/auth/login" />
             }
         }}
         />
