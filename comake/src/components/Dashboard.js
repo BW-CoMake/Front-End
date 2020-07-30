@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 // import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
@@ -62,10 +62,6 @@ const Dashboard = ({ history, getIssues, issues, upVote, downVote, id }) => {
         getIssues()
     }, [getIssues])
 
-    // const logout = () => {
-    //     localStorage.removeItem("token")
-    //     history.push("/")
-    // }
     return (
       <div>
         {/* <div className={classes.nava}>

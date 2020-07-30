@@ -51,12 +51,12 @@ const useStyles = makeStyles(theme => ({
         }
     },
     drawer: {
-        backgroundColor: theme.palette.primary.main   
+        backgroundColor: theme.palette.primary.main
     },
     drawerItem: {
-       ...theme.typography.tab,
-       color: "white",
-       opacity: 0.7 
+        ...theme.typography.tab,
+        color: "white",
+        opacity: 0.7
     },
     drawerItemSelected: {
         opacity: 1
@@ -87,6 +87,11 @@ export default function Header(props) {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [value, setValue] = useState(0);
 
+    const logout = () => {
+        localStorage.removeItem("token")
+        props.history.push("/")
+    }
+
     const handleChange = (e, newValue) => {
         setValue(newValue);
     };
@@ -100,6 +105,8 @@ export default function Header(props) {
             setValue(2)
         } else if (window.location.pathname === "/register" && value !== 3) {
             setValue(3)
+        } else if (window.location.pathname === "/" && value !== 0) {
+            setValue(0)
         }
     }, [value]);
 
@@ -125,6 +132,11 @@ export default function Header(props) {
                     component={Link}
                     to="/auth/register"
                     label="Sign Up" />
+                <Tab className={classes.tab}
+                    component={Link}
+                    onClick={logout}
+                    to="/"
+                    label="Log Out" />
             </Tabs>
         </>
     );
@@ -132,54 +144,64 @@ export default function Header(props) {
     const drawer = (
         <>
             <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={openDrawer} onClose={() => setOpenDrawer(false)} onOpen={() => setOpenDrawer(true)}
-            classes={{paper: classes.drawer}}>
-               <List disablePadding>
-                   <ListItem 
-                   selected={value === 0}
-                   onClick={() => {setOpenDrawer(false); setValue(0)}}
-                   divider 
-                   button 
-                   component={Link} 
-                   to="/">
-                    <ListItemText 
-                    className={value === 0 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Home</ListItemText>
-                   </ListItem>
-                   <ListItem 
-                   selected={value === 1}
-                   onClick={() => {setOpenDrawer(false); setValue(1)}}
-                   divider 
-                   button 
-                   component={Link} 
-                   to="/about">
-                    <ListItemText 
-                     className={value === 1 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>About Us</ListItemText>
-                   </ListItem>
-                   <ListItem 
-                   selected={value === 2}
-                   onClick={() => {setOpenDrawer(false); setValue(2)}}
-                   divider 
-                   button 
-                   component={Link} 
-                   to="/auth/login">
-                    <ListItemText 
-                     className={value === 2 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Login</ListItemText>
-                   </ListItem>
-                   <ListItem 
-                   selected={value === 3}
-                   onClick={() => {setOpenDrawer(false); setValue(3)}}
-                   divider 
-                   button 
-                   component={Link} 
-                   to="/auth/register">
-                    <ListItemText 
-                     className={value === 3 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem}disableTypography>Sign Up</ListItemText>
-                   </ListItem>
-               </List>
+                classes={{ paper: classes.drawer }}>
+                <List disablePadding>
+                    <ListItem
+                        selected={value === 0}
+                        onClick={() => { setOpenDrawer(false); setValue(0) }}
+                        divider
+                        button
+                        component={Link}
+                        to="/">
+                        <ListItemText
+                            className={value === 0 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem} disableTypography>Home</ListItemText>
+                    </ListItem>
+                    <ListItem
+                        selected={value === 1}
+                        onClick={() => { setOpenDrawer(false); setValue(1) }}
+                        divider
+                        button
+                        component={Link}
+                        to="/about">
+                        <ListItemText
+                            className={value === 1 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem} disableTypography>About Us</ListItemText>
+                    </ListItem>
+                    <ListItem
+                        selected={value === 2}
+                        onClick={() => { setOpenDrawer(false); setValue(2) }}
+                        divider
+                        button
+                        component={Link}
+                        to="/auth/login">
+                        <ListItemText
+                            className={value === 2 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem} disableTypography>Login</ListItemText>
+                    </ListItem>
+                    <ListItem
+                        selected={value === 3}
+                        onClick={() => { setOpenDrawer(false); setValue(3) }}
+                        divider
+                        button
+                        component={Link}
+                        to="/auth/register">
+                        <ListItemText
+                            className={value === 3 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem} disableTypography>Sign Up</ListItemText>
+                    </ListItem>
+                    <ListItem
+                        selected={value === 0}
+                        onClick={(logout) => { setOpenDrawer(false); setValue(0); }}
+                        divider
+                        button
+                        component={Link}
+                        to="/">
+                        <ListItemText
+                            className={value === 2 ? [classes.drawerItem, classes.drawerItemSelected] : classes.drawerItem} disableTypography>Log Out</ListItemText>
+                    </ListItem>
+                </List>
             </SwipeableDrawer>
-            <IconButton 
-            className={classes.drawerIconContainer}
-            onClick={() => setOpenDrawer(!openDrawer)} disableRipple>
-                <MenuIcon className={classes.drawerIcon}/>
+            <IconButton
+                className={classes.drawerIconContainer}
+                onClick={() => setOpenDrawer(!openDrawer)} disableRipple>
+                <MenuIcon className={classes.drawerIcon} />
             </IconButton>
         </>
     )
@@ -189,8 +211,8 @@ export default function Header(props) {
             <ElevationScroll>
                 <AppBar color="primary">
                     <Toolbar disableGutters>
-                    <Typography variant="h2"
-                    className={classes.appHeader}>Co-Make</Typography>
+                        <Typography variant="h2"
+                            className={classes.appHeader}>Co-Make</Typography>
                         {/* <img src={logo} alt="company logo" /> */}
                         {matchesMD ? drawer : tabs}
                     </Toolbar>

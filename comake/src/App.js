@@ -8,7 +8,10 @@ import Header from './ui/Header';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
-
+import AddIssue from './components/AddIssue';
+import Issue from './components/Issue';
+import MyIssue from './components/MyIssue';
+import MyIssues from './components/MyIssues';
 
 function App() {
   return (
@@ -20,7 +23,11 @@ function App() {
           <Route path="/about" component={() => <div>About</div>} />
           <Route exact path="/auth/login" render={ (props)=> <Login {...props} /> } />
           <Route path="/auth/register" render={ (props)=> <Signup {...props} /> } />
-          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/issues" component={Dashboard} />
+          <PrivateRoute path="/issues/:id" component={Issue} />
+          <PrivateRoute path="/addIssue" component={AddIssue} />
+          <PrivateRoute path="/myIssues/:id" component={MyIssue} />
+          <PrivateRoute path="/myIssues" component={MyIssues} /> 
         </Switch>
       </Router>
     </ThemeProvider>
