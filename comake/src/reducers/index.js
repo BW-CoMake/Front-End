@@ -29,7 +29,7 @@ export const rootReducer = (state = initialState, action) => {
         case DELETE_SPEC_ISSUE:
             return {...state, issues: state.issues.filter(issue => issue.id === action.id)}
         case ADD_VOTE:
-            return {...state, singleIssue: {...state.singleIssue, vote: action.issue.vote + 1}, issues: state.issues.map(value => (value.id === action.id) ? {...action.issue, vote: action.issue.vote + 1} : value)}
+            return {...state, singleIssue: {...state.singleIssue, vote: action.issue.vote}, issues: state.issues.map(value => (value.id === action.id) ? {...action.issue, vote: action.issue.vote} : value)}
         case SUBTRACT_VOTE: 
              return {...state, singleIssue: {...state.singleIssue, vote: action.issue.vote - 1}, issues: state.issues.map(value => (value.id === action.id) ? {...action.issue, vote: action.issue.vote - 1} : value)}
         default: return {...state}

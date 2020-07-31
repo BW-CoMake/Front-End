@@ -44,7 +44,7 @@ const Login = ({history, values, errors, touched, login, getUsers}) => {
         login({ email, password });
         setEmail("");
         setPassword("");
-        setTimeout(() => history.push("/dashboard"), 1000)
+        setTimeout(() => history.push("/issues"), 1000)
     };
 
     return (
