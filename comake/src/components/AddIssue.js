@@ -2,7 +2,8 @@ import React,{ useState } from "react"
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavLink } from "reactstrap";
+import Grid from '@material-ui/core/Grid';
+// import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavLink } from "reactstrap";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 
@@ -17,16 +18,16 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
       },
     },
-    nava: {
-        height: "150px",
+    // nava: {
+    //     height: "150px",
 
-    },
-    navBar: {
-        backgroundColor: "#17202A",
-        color: "#E5E7E9",
-        marginBottom: "100px",
-        height: "100%"
-    },
+    // },
+    // navBar: {
+    //     backgroundColor: "#17202A",
+    //     color: "#E5E7E9",
+    //     marginBottom: "100px",
+    //     height: "100%"
+    // },
   }));
 
 const AddIssue = ({ history, addIssue }) => {
@@ -38,13 +39,19 @@ const AddIssue = ({ history, addIssue }) => {
     const [city, handleCity] = useInput("")
     const [zip, handleZip] = useInput("")
     
-    const [collapsed, setCollapsed] = useState(true);
-    const toggleNavbar = () => setCollapsed(!collapsed);
+    // const [collapsed, setCollapsed] = useState(true);
+    // const toggleNavbar = () => setCollapsed(!collapsed);
 
     const handleAddIssue = (e) => {
         // e.preventDefault()
-        addIssue({ issue: name, description: desc, city, zip })
-        setTimeout(() => history.push("/dashboard"), 500) 
+        addIssue({
+            user_id: "",
+            zipCode: "",
+            issue_name: "",
+            description:  "",
+            category: ""
+          })
+        setTimeout(() => history.push("/issues"), 500) 
     }
     const validationSchema = yup.object().shape({
         name: yup
@@ -68,7 +75,7 @@ const AddIssue = ({ history, addIssue }) => {
     const { register, errors, handleSubmit } = useForm({ validationSchema })
 return (
     <form>
-        <div className={classes.nava}>
+        {/* <div className={classes.nava}>
             <Navbar className={classes.navBar} dark>
                 <NavbarBrand href="/" fontWeight="bold" className="mr-auto">Comake</NavbarBrand>
        <NavbarToggler backgroundColor="white" onClick={toggleNavbar} className="mr-2" />
@@ -78,7 +85,7 @@ return (
                 </Nav>
             </Collapse>
          </Navbar>
-         </div>
+         </div> */}
         
         <form id="form" onSubmit={ handleSubmit(handleAddIssue) }>
             <p>Be sure to fill out all fields, if adding an issue.</p>

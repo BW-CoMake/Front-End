@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 // import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
@@ -9,61 +9,77 @@ import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
-
-
+import Grid from '@material-ui/core/Grid';
 
 import { getIssues, upVote, downVote } from "../actions";
+import Issue from './Issue';
+import AddIssue from './AddIssue';
 
-const useStyles = makeStyles (theme => ({
 
-    root: {
+const useStyles = makeStyles(theme => ({
 
-      maxWidth: "65vw",
-      width: "65vw",
-      marginTop: 20,
-    },
-    // nava: {
-    //     height: "150px",
+  root: {
 
-    // },
-    // navBar: {
-    //     backgroundColor: "coBlue",
-    //     color: "coTeal",
-    //     marginBottom: "100px",
-    //     height: "100%"
-    // },
-    card: {
-        maxWidth: "65vw",
-        
-        width: "65vw",
-        margin: "10px",
-        transition: "0.3s",
-        boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-        "&:hover": {
-          boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
-        }
-      },
-      divider: {
-        margin: `px 0`,
-        padding:"0px 20 0 20"
-      },
-  }));
+    maxWidth: "65vw",
+    width: "65vw",
+    marginTop: 20,
+  },
+  // nava: {
+  //     height: "150px",
 
-const Dashboard = ({ history, getIssues, issues, upVote, downVote, id }) => {
+  // },
+  // navBar: {
+  //     backgroundColor: "coBlue",
+  //     color: "coTeal",
+  //     marginBottom: "100px",
+  //     height: "100%"
+  // },
+  card: {
+    maxWidth: "65vw",
+
+    width: "65vw",
+    margin: "10px",
+    transition: "0.3s",
+    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+    "&:hover": {
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+    }
+  },
+  divider: {
+    margin: `px 0`,
+    padding: "0px 20 0 20"
+  },
+}));
+
+
+
+const Dashboard =
+  ({ history, getIssues, issues, upVote, downVote, issue_id, id}) => {
+
+    const [user_id, setUser_id] = useState(localStorage.getItem("id"));
+  console.log(issues)
+
+
     const classes = useStyles();
-    
 
+  
     // const [collapsed, setCollapsed] = useState(true);
     // const toggleNavbar = () => setCollapsed(!collapsed);
 
 
-    useEffect( () => {
-        getIssues()
+    useEffect(() => {
+      getIssues()
     }, [getIssues])
 
     return (
-      <div>
+      <Grid container>
+        {/* <Grid item container>
+          <Grid item>
+            <Typography variant="subtitle1">
+              <Link onClick={() => history.push('/issues')}>Add an Issue</Link>
+            </Typography>
+          </Grid>
+        </Grid> */}
         {/* <div className={classes.nava}>
           <Navbar className={classes.navBar}>
             <NavbarBrand href="/" fontWeight="bold" className="mr-auto">
@@ -93,9 +109,10 @@ const Dashboard = ({ history, getIssues, issues, upVote, downVote, id }) => {
             </Collapse>
           </Navbar>
         </div> */}
-
+        <AddIssue />
         {issues ? (
-          issues.map(issue => (
+         issues.map(issue => (
+          
             <Card className={classes.card} key={Math.random()}>
               <CardContent>
                 <Typography
@@ -120,7 +137,8 @@ const Dashboard = ({ history, getIssues, issues, upVote, downVote, id }) => {
                     <Button
                       size="small"
                       color="primary"
-                      onClick={() => upVote(issue.id, issue)}
+                      // id={issue.id}
+                      onClick={() => upVote(issue.id, user_id)}
                     >
                       UpVote
                     </Button>
@@ -133,24 +151,23 @@ const Dashboard = ({ history, getIssues, issues, upVote, downVote, id }) => {
                     </Button>
                   </div>
                   <div className="flex-row2">
-                    <Typography>City: {issue.city}</Typography>
-                    <Typography>Zip: {issue.zip}</Typography>
+                    <Typography>Zip: {issue.zipCode}</Typography>
                   </div>
                 </div>
               </CardActions>
             </Card>
           ))
         ) : (
-          <p>loading</p>
-        )}
-      </div>
+            <p>loading</p>
+          )}
+      </Grid>
     );
-}
+  }
 
 const mapStateToProps = (state) => {
-    return { 
-        ...state, issues: state.issues
-    }
+  return {
+    ...state, issues: state.issues
+  }
 }
 
 export default connect(mapStateToProps, { getIssues, upVote, downVote })(Dashboard)

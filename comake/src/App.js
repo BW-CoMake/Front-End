@@ -24,8 +24,8 @@ function App() {
           <Route exact path="/auth/login" render={ (props)=> <Login {...props} /> } />
           <Route path="/auth/register" render={ (props)=> <Signup {...props} /> } />
           <PrivateRoute path="/issues" component={Dashboard} />
+          <PrivateRoute path="/issues" component={AddIssue} />
           <PrivateRoute path="/issues/:id" component={Issue} />
-          <PrivateRoute path="/addIssue" component={AddIssue} />
           <PrivateRoute path="/myIssues/:id" component={MyIssue} />
           <PrivateRoute path="/myIssues" component={MyIssues} /> 
         </Switch>

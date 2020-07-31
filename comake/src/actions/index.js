@@ -33,7 +33,9 @@ export const login = (user) => dispatch => {
 export const getIssues = () => dispatch => {
     axiosWithAuth()
         .get("/issues")
-        .then(res => dispatch({ type: GET_ALL_ISSUES, issues: res.data }))
+        .then(res => 
+            dispatch({ 
+            type: GET_ALL_ISSUES, issues: res.data }))
         .catch(err => console.log(err.message));
 }
 
@@ -51,14 +53,14 @@ export const getIssueById = (id) => dispatch => {
 
 export const addIssue = (issue) => dispatch => {
     axiosWithAuth()
-        .post(`/${localStorage.getItem("id")}/issues`, issue)
+        .post(`/issues/${localStorage.getItem("id")}`, issue)
         .then(res => dispatch({ type: ADD_ISSUE, issue: res.data }))
         .catch(err => console.log("There was an error adding issue", err.message))
 }
 
 export const editIssue = (id, issue) => dispatch => {
     axiosWithAuth()
-        .put(`issues/${id}`, issue)
+        .put(`/issues/${id}`, issue)
         .then(res => dispatch({ type: EDIT_ISSUE, issue: res.data }))
 }
 
@@ -68,10 +70,11 @@ export const deleteIssue = (id) => dispatch => {
         .then(res => dispatch({ type: DELETE_SPEC_ISSUE, id }))
 }
 
-export const upVote = (issue_id, issue) => dispatch => {
+export const upVote = (issue_id, user_id) => dispatch => {
+    console.log(issue_id, user_id)
     axiosWithAuth()
-        .post(`/upvotes/issue/${issue_id}`, { ...issue, vote: issue.vote + 1 })
-        .then(res => dispatch({ type: ADD_VOTE, issue, issue_id }))
+        .post(`/upvotes/issue/`, { issue_id: "", user_id: ""})
+        .then(res => dispatch({ type: ADD_VOTE, user_id, issue_id }))
 }
 
 export const downVote = (issue_id, issue) => dispatch => {
